@@ -8,68 +8,51 @@
 
 import UIKit
 
-class EditTextViewController: UIViewController, UITextFieldDelegate {
+class EditTextViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var editTextView: UITextView!
-    
-    
-    ////hhiiiihellloo
-    
+    var currentText: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let tapOffKeyboard: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tapOffKeyboard)
+        editTextView.delegate = self
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if (segue.identifier == "doneEditText"){
+            segue.destination.dismiss(animated: true, completion: nil)
+            //segue.destination.dismiss(animated: true, completion: nil)
+            //navigationController?.viewControllers.remove(at: 1)
             let mainVC = segue.destination as! MainViewController
             if (self.editTextView.text != nil){
                 mainVC.currentText = self.editTextView.text
-                //print(mainVC.objectText.text)
-                //mainVC.objectText.text = self.editTextView.text
             }
-            //mainVC.objectText.text = self.editTextView.text
         }
     }
     
     @objc func dismissKeyboard() {
+        self.editTextView.text = "tap to edit object name!"
         view.endEditing(true)
     }
   
-    private func textViewDidBeginEditing(textView: UITextView!) {
+    func textViewDidBeginEditing(_ textView: UITextView){
         if (textView == self.editTextView){
             self.editTextView.text = ""
         }
     }
     
-    @objc func textFieldTapped(){
-        
-    }
     
     @IBAction func submitButtonPressed(_ sender: Any) {
+//         self.dismiss(animated: true, completion: self.performSegue(withIdentifier: "doneEditText", sender: self))
+        //self.dismiss(animated: true, completion: nil)
         self.performSegue(withIdentifier: "doneEditText", sender: self)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
