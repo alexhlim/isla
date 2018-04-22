@@ -57,7 +57,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        objectText.text = "press DETECT to \nrecognize object!"
+        objectText.text = "press DETECT to recognize object!"
         objectText.font = UIFont(name: "Arial", size: 18)
         objectText.textColor = UIColor.white
         
@@ -77,12 +77,6 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         // Enable Default Lighting - makes the 3D text a bit poppier.
         sceneView.autoenablesDefaultLighting = true
 
-        //////////////////////////////////////////////////
-        // Tap Gesture Recognizer
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(gestureRecognize:)))
-//        view.addGestureRecognizer(tapGesture)
-
-        //////////////////////////////////////////////////
 
         guard let model = try? VNCoreMLModel(for: Inceptionv3().model) else{
             fatalError("Could not model. Please input another model.")
@@ -215,20 +209,23 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         // API Req
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if (segue.identifier == "editText"){
+            let editVC = segue.destination as! EditTextViewController;
+            editVC.currentText = objectText.text
+        }
+        if (segue.identifier == "toDictionaryScreen" ){
+            
+        }
+        if (segue.identifier == "backToHomeScreen" ){
+            
+        }
+        
+    }
+    
     
     @IBAction func editTextPressed(_ sender: Any) {
-        // edit text / bring up view controller?
-        //let editTextVC = EditTextViewController()
-        //editTextVC.view.backgroundColor = UIColor.clear
-        
-//        let editVC = storyboard?.instantiateInitialViewController() as! EditTextVC
-//        editVC.
-//        viewControllerToPresentIn.presentViewController(currentVC, animated: true, completion: nil)
-        //editTextVC.
-        
         self.performSegue(withIdentifier: "editText", sender: self)
-        //print("pressed")
-        
     }
     
     @IBAction func saveTextPressed(_ sender: Any) {
