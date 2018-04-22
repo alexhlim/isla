@@ -19,16 +19,7 @@ class EditTextViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let tapOffKeyboard: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        //editTextView.delegate = self
-//        editTextView.delegate = self as! UITextViewDelegate
-        //let tapOnText: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.textFieldTapped))
-        
         view.addGestureRecognizer(tapOffKeyboard)
-        //editTextView.delegate = self
-        //editTextView.superview?.addGestureRecognizer(tapOnText)
-        
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
