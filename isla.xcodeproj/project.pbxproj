@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0CF9938208AF110001EAD30 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF9937208AF110001EAD30 /* HomeViewController.swift */; };
+		D0CF993A208AF189001EAD30 /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */; };
+		D0CF993E208B156E001EAD30 /* EditTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF993D208B156E001EAD30 /* EditTextViewController.swift */; };
+		D0D1FF382087AB140092700A /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D0D1FF362087AA480092700A /* Inceptionv3.mlmodel */; };
 		D0D58563208170B1004DF5E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D58562208170B1004DF5E5 /* AppDelegate.swift */; };
 		D0D58565208170B1004DF5E5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = D0D58564208170B1004DF5E5 /* art.scnassets */; };
-		D0D58567208170B1004DF5E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D58566208170B1004DF5E5 /* ViewController.swift */; };
+		D0D58567208170B1004DF5E5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D58566208170B1004DF5E5 /* MainViewController.swift */; };
 		D0D5856A208170B1004DF5E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0D58568208170B1004DF5E5 /* Main.storyboard */; };
 		D0D5856C208170B1004DF5E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0D5856B208170B1004DF5E5 /* Assets.xcassets */; };
 		D0D5856F208170B1004DF5E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0D5856D208170B1004DF5E5 /* LaunchScreen.storyboard */; };
@@ -35,10 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D0CF9937208AF110001EAD30 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
+		D0CF993D208B156E001EAD30 /* EditTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextViewController.swift; sourceTree = "<group>"; };
+		D0D1FF362087AA480092700A /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Inceptionv3.mlmodel; path = ../../../Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		D0D5855F208170B1004DF5E5 /* isla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = isla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0D58562208170B1004DF5E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0D58564208170B1004DF5E5 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		D0D58566208170B1004DF5E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D0D58566208170B1004DF5E5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D0D58569208170B1004DF5E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D0D5856B208170B1004DF5E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0D5856E208170B1004DF5E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -101,11 +109,15 @@
 			children = (
 				D0D58562208170B1004DF5E5 /* AppDelegate.swift */,
 				D0D58564208170B1004DF5E5 /* art.scnassets */,
-				D0D58566208170B1004DF5E5 /* ViewController.swift */,
+				D0D58566208170B1004DF5E5 /* MainViewController.swift */,
+				D0CF993D208B156E001EAD30 /* EditTextViewController.swift */,
 				D0D58568208170B1004DF5E5 /* Main.storyboard */,
+				D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */,
+				D0CF9937208AF110001EAD30 /* HomeViewController.swift */,
 				D0D5856B208170B1004DF5E5 /* Assets.xcassets */,
 				D0D5856D208170B1004DF5E5 /* LaunchScreen.storyboard */,
 				D0D58570208170B1004DF5E5 /* Info.plist */,
+				D0D1FF362087AA480092700A /* Inceptionv3.mlmodel */,
 			);
 			path = isla;
 			sourceTree = "<group>";
@@ -263,8 +275,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0D58567208170B1004DF5E5 /* ViewController.swift in Sources */,
+				D0CF993A208AF189001EAD30 /* DictionaryViewController.swift in Sources */,
+				D0CF993E208B156E001EAD30 /* EditTextViewController.swift in Sources */,
+				D0D58567208170B1004DF5E5 /* MainViewController.swift in Sources */,
+				D0D1FF382087AB140092700A /* Inceptionv3.mlmodel in Sources */,
 				D0D58563208170B1004DF5E5 /* AppDelegate.swift in Sources */,
+				D0CF9938208AF110001EAD30 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
