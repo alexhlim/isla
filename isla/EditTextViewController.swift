@@ -15,11 +15,12 @@ class EditTextViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let tapOffKeyboard: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        editTextView.delegate = self
+        //editTextView.delegate = self
 //        editTextView.delegate = self as! UITextViewDelegate
         //let tapOnText: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.textFieldTapped))
         
         view.addGestureRecognizer(tapOffKeyboard)
+        //editTextView.delegate = self
         //editTextView.superview?.addGestureRecognizer(tapOnText)
         
 
@@ -47,7 +48,7 @@ class EditTextViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
   
-    func textViewDidBeginEditing(textView: UITextView!) {
+    private func textViewDidBeginEditing(textView: UITextView!) {
         if (textView == self.editTextView){
             self.editTextView.text = ""
         }
