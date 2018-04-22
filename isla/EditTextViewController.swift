@@ -12,6 +12,10 @@ class EditTextViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var editTextView: UITextView!
     
+    
+    ////hhiiii
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tapOffKeyboard: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
