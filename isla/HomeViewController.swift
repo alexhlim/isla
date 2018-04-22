@@ -15,6 +15,9 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var toPicker: UIPickerView!
     var languages: [String] = [String]()
     
+    var fromLanguage = ""
+    var toLangauge = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +36,11 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         //populatepicker
         languages = ["English", "Albanian", "Amharic", "Arabic", "Bengali", "Bulgarian", "Bosnian", "Chinese", "Croatian", "Czech", "Danish", "Dutch", "Finnish", "French", "German", "Greek", "Haitian (Creole)", "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Irish", "Italian", "Japanese", "Korean", "Laotian", "Latin", "Latvian", "Lithuanian", "Luxembourgish", "Malay", "Malayalam", "Maltese", "Mongolian", "Nepali", "Norwegian", "Punjabi", "Persian", "Polish", "Portuguese", "Romanian", "Russian", "Scottish", "Serbian", "Slovakian", "Slovenian", "Spanish", "Swahili", "Thai", "Turkish", "Ukrainian", "Vietnamese", "Welsh", "Yiddish"];
         
-    
+        //set default value to from English to French
+        fromLanguage = languages[0]
+        toLangauge = languages[13]
+        self.fromPicker.selectRow(0, inComponent: 0, animated: true)
+        self.toPicker.selectRow(13, inComponent: 0, animated: true)
     }
     
     @objc func respondToSwipeLeft(gesture : UIGestureRecognizer) {
@@ -64,6 +71,21 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         return languages[row]
     }
     
+    // Capture the picker view selection
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        switch pickerView {
+        case fromPicker: fromLanguage += languages[row]
+        case toPicker: toLangauge += languages[row]
+        default:
+            fromLanguage += languages[row]
+            toLangauge += languages[row]
+        }
+        
+        print("from ", fromLanguage, " to ", toLangauge)
+        
+    }
+
     
 
 }
