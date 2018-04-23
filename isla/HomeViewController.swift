@@ -75,20 +75,26 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         switch pickerView {
-        case fromPicker: fromLanguage += languages[row]
-        case toPicker: toLangauge += languages[row]
+        case fromPicker: fromLanguage = languages[row]
+        case toPicker: toLangauge = languages[row]
         default:
-            fromLanguage += languages[row]
-            toLangauge += languages[row]
+            fromLanguage = languages[row]
+            toLangauge = languages[row]
         }
         
-        print("from ", fromLanguage, " to ", toLangauge)
+        print("FIRST CONTROLLER from ", fromLanguage, " to ", toLangauge)
         
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let vc = segue.destination as? MainViewController
+        {
+            vc.toLangauge = self.toLangauge
+            vc.fromLanguage = self.fromLanguage
+        }
+   
+    }
 
     
 

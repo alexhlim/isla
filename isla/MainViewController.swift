@@ -28,6 +28,10 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     
     var currentText: String!
     
+    //variables for language selections
+    var fromLanguage = "";
+    var toLangauge = "";
+    
     ////////////////////////////////////////
     // SCENE
     let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
@@ -42,6 +46,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("SECOND CONTROLLER from ", fromLanguage, " to ", toLangauge)
+        
         
         // swipe left: go to dictionary vc
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipe))
@@ -212,7 +219,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if (segue.identifier == "editText"){
             let editVC = segue.destination as! EditTextViewController;
-            editVC.currentText = objectText.text
+//            editVC.currentText = objectText.text
         }
         if (segue.identifier == "toDictionaryScreen" ){
             
