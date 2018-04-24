@@ -31,6 +31,12 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     //variables for language selections
     var fromLanguage = "";
     var toLangauge = "";
+    var fromCode = "";
+    var toCode = ""; 
+    
+    //api key for yandex
+    var APIKey = "trnsl.1.1.20180422T194443Z.0cefe4aad54a64e7.803240dd4b0f2d8166f7d7ad878d512f2dab58fa"
+    var testword = "table"
     
     ////////////////////////////////////////
     // SCENE
@@ -47,8 +53,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("SECOND CONTROLLER from ", fromLanguage, " to ", toLangauge)
-        
+        self.translate(word: testword)
         
         // swipe left: go to dictionary vc
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipe))
@@ -68,7 +73,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         objectText.font = UIFont(name: "Arial", size: 18)
         objectText.textColor = UIColor.white
         
-        languageLabel.text = "INSERT LANGUAGE"
+        languageLabel.text = toLangauge;
         languageLabel.font = UIFont(name: "Arial", size: 18)
         languageLabel.textColor = DARKBLUE
         
@@ -203,6 +208,63 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         catch {
             print(error)
         }
+
+    }
+    
+//    translate function that takes languages specs and the word to be translated
+    //TODO: URL encode strings
+    func translate(word: String){
+
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration)
+
+
+        let urlString = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=\(APIKey)&text=\(word)&lang=\(fromCode)-\(toCode)"
+
+        print("url string is \(urlString)")
+        //let url = NSURL(string: urlString as String)
+
+        let request : NSMutableURLRequest = NSMutableURLRequest()
+        request.url = NSURL(string: urlString)! as URL
+        request.httpMethod = "GET"
+        request.timeoutInterval = 30
+
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        let dataTask = session.dataTask(with: request as URLRequest) {
+             data, response, error in
+
+            // 1: Check HTTP Response for successful GET request
+            guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                else {
+                    print("error: not a valid http response")
+                    return
+            }
+
+            switch (httpResponse.statusCode)
+            {
+            case 200:
+
+                let response = NSString (data: receivedData, encoding: String.Encoding.utf8.rawValue)
+                print("response is \(response)")
+//                do {
+//                    let getResponse = try JSONSerialization.JSONObjectWithData(receivedData, options: .AllowFragments)
+//
+//                    EZLoadingActivity .hide()
+//
+//                    // }
+//                } catch {
+//                    print("error serializing JSON: \(error)")
+//                }
+                break
+            case 400:
+                break
+            default:
+                print(" GET request got response \(httpResponse.statusCode)")
+            }
+        }
+        dataTask.resume()
 
     }
 
