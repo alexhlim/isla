@@ -13,10 +13,15 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     //variables
     @IBOutlet weak var fromPicker: UIPickerView!
     @IBOutlet weak var toPicker: UIPickerView!
-    var languages: [String] = [String]()
+    //var languages: [String] = [String]()
+    //var languageCodes: [String] = [String]()
     
     var fromLanguage = ""
     var toLangauge = ""
+    
+    var languages = ["English", "Albanian", "Amharic", "Arabic", "Bengali", "Bulgarian", "Bosnian", "Chinese", "Croatian", "Czech", "Danish", "Dutch", "Finnish", "French", "German", "Greek", "Haitian (Creole)", "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Irish", "Italian", "Japanese", "Korean", "Laotian", "Latin", "Latvian", "Lithuanian", "Luxembourgish", "Malay", "Malayalam", "Maltese", "Mongolian", "Nepali", "Norwegian", "Punjabi", "Persian", "Polish", "Portuguese", "Romanian", "Russian", "Scottish", "Serbian", "Slovakian", "Slovenian", "Spanish", "Swahili", "Thai", "Turkish", "Ukrainian", "Vietnamese", "Welsh", "Yiddish"]
+    
+    var languageCodes = ["en", "sq", "am", "ar", "bn", "bg", "bs", "zh", "hr", "cs", "da", "nl", "fi", "fr", "de", "el", "ht", "he", "hi", "hu", "is", "id", "ga", "it", "ja", "ko", "lo", "la", "lv", "lt", "lb", "ms", "ml", "mt", "mn", "ne", "no", "pa", "fa", "pl", "pt", "ro", "ru", "gd", "sr", "sk", "sl", "es", "sw", "th", "tr", "uk", "vi", "cy", "yi"]
     
     
     override func viewDidLoad() {
@@ -34,7 +39,6 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         self.toPicker.dataSource = self
         
         //populatepicker
-        languages = ["English", "Albanian", "Amharic", "Arabic", "Bengali", "Bulgarian", "Bosnian", "Chinese", "Croatian", "Czech", "Danish", "Dutch", "Finnish", "French", "German", "Greek", "Haitian (Creole)", "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Irish", "Italian", "Japanese", "Korean", "Laotian", "Latin", "Latvian", "Lithuanian", "Luxembourgish", "Malay", "Malayalam", "Maltese", "Mongolian", "Nepali", "Norwegian", "Punjabi", "Persian", "Polish", "Portuguese", "Romanian", "Russian", "Scottish", "Serbian", "Slovakian", "Slovenian", "Spanish", "Swahili", "Thai", "Turkish", "Ukrainian", "Vietnamese", "Welsh", "Yiddish"];
         
         //set default value to from English to French
         fromLanguage = languages[0]
@@ -92,6 +96,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         {
             vc.toLangauge = self.toLangauge
             vc.fromLanguage = self.fromLanguage
+            vc.fromCode = languageCodes[languages.index(of: self.fromLanguage)!]
+            vc.toCode = languageCodes[languages.index(of: self.toLangauge)!]
         }
    
     }
