@@ -42,10 +42,21 @@ class DictionaryViewController: UIViewController, UITableViewDelegate, UITableVi
         table.delegate = self
         table.dataSource = self
         
-        savedWords.append(temp)
+//        if (savedWords.)){
+//            savedWords.append(temp)
+//        }
         table.backgroundColor = LIGHTBLUE
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "backToMainScreen"){
+            let mainVC = segue.destination as! MainViewController
+            mainVC.savedWords = self.savedWords
+            mainVC.fromLanguage = self.fromLanguage
+            mainVC.toLangauge = self.toLangauge
+        }
     }
     
     @objc func respondToSwipeRight(gesture : UIGestureRecognizer) {
