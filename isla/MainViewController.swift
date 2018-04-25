@@ -40,7 +40,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     
     //api key for yandex
     var APIKey = "trnsl.1.1.20180422T194443Z.0cefe4aad54a64e7.803240dd4b0f2d8166f7d7ad878d512f2dab58fa"
-    var testword = "table"
+    //var testword = "cellular telephone"
     
     ////////////////////////////////////////
     // SCENE
@@ -57,7 +57,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print (self.translate(word: testword, fromL: "en", toL: self.toCode))
+        print(self.toCode);
+        //print (self.translate(word: testword, fromL: "en", toL: self.toCode))
         
         // swipe left: go to dictionary vc
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipe))
@@ -185,7 +186,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         DispatchQueue.main.async {
             self.currentWord.originalText = topClassifications[0]
             //translate detected word from english
-            let translatedWord = self.translate(word: self.currentWord.originalText!, fromL: "en", toL: self.fromLanguage)
+            let translatedWord = self.translate(word: self.currentWord.originalText!, fromL: "en", toL: self.fromCode)
             
             self.currentWord.originalText = translatedWord;
             self.objectText.text = self.currentWord.originalText
@@ -224,6 +225,11 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
 //    translate function that takes languages specs and the word to be translated
     //TODO: URL encode strings
     func translate(word: String, fromL: String, toL: String) -> (String){
+        
+        //url encode
+        let word = word.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
+        
+        print("urlencoded ", word)
 
         var translation = "";
         
@@ -285,7 +291,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     
     @IBAction func translatePressed(_ sender: Any) {
         // API Req
-        
+        print ("current text ", self.currentWord.originalText)
         let translation = self.translate(word: self.currentWord.originalText!, fromL: fromLanguage, toL: toLangauge)
         
         self.currentWord.translatedText = translation
