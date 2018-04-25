@@ -186,6 +186,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         
         DispatchQueue.main.async {
             self.currentText = topClassifications[0]
+            self.translate(word: self.currentText)
             self.objectText.text = self.currentText
         }
     }
