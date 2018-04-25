@@ -59,7 +59,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.translate(word: testword)
+        print (self.translate(word: testword, fromL: "en", toL: self.toCode))
         
         // swipe left: go to dictionary vc
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipe))
@@ -186,8 +186,10 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         
         DispatchQueue.main.async {
             self.currentText = topClassifications[0]
-            self.translate(word: self.currentText)
-            self.objectText.text = self.currentText
+            //translate detected word from english
+            var translatedWord = self.translate(word: self.currentText, fromL: "en", toL: self.fromLanguage)
+            
+            self.objectText.text = translatedWord
         }
     }
 
@@ -221,13 +223,15 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     
 //    translate function that takes languages specs and the word to be translated
     //TODO: URL encode strings
-    func translate(word: String){
+    func translate(word: String, fromL: String, toL: String) -> (String){
 
+        var translation = "";
+        
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
 
 
-        let urlString = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=\(APIKey)&text=\(word)&lang=\(fromCode)-\(toCode)"
+        let urlString = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=\(APIKey)&text=\(word)&lang=\(fromL)-\(toL)"
 
         print("url string is \(urlString)")
         //let url = NSURL(string: urlString as String)
@@ -253,19 +257,13 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
             switch (httpResponse.statusCode)
             {
             case 200:
-
-                let response = NSString (data: receivedData, encoding: String.Encoding.utf8.rawValue)
-                print("response is \(response)")
-                
-//                do {
-//                    let getResponse = try JSONSerialization.JSONObjectWithData(receivedData, options: .AllowFragments)
-//
-//                    EZLoadingActivity .hide()
-//
-//                    // }
-//                } catch {
-//                    print("error serializing JSON: \(error)")
-//                }
+                if let json = (try? JSONSerialization.jsonObject(with: receivedData, options: .allowFragments)) as? [String: Any] {
+                    let tArray = json["text"] as! [String]
+                    translation = tArray[0]
+                        print("response is \(translation)")
+                    
+                }
+                //let response = NSString (data: receivedData, encoding: String.Encoding.utf8.rawValue)
                 break
             case 400:
                 break
@@ -274,6 +272,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         dataTask.resume()
+        
+        return translation
 
     }
 
