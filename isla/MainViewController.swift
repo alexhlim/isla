@@ -248,6 +248,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
 
                 let response = NSString (data: receivedData, encoding: String.Encoding.utf8.rawValue)
                 print("response is \(response)")
+                
 //                do {
 //                    let getResponse = try JSONSerialization.JSONObjectWithData(receivedData, options: .AllowFragments)
 //
@@ -276,6 +277,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     
     @IBAction func translatePressed(_ sender: Any) {
         // API Req
+        
+        //self.objectText.text = currentText
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
