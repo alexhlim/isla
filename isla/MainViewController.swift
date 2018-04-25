@@ -18,6 +18,10 @@ import Vision
 let LIGHTBLUE = UIColor(red: (189.0/255.0), green: (232.0/255.0), blue: (248.0/255.0), alpha: (255.0/255.0))
 let DARKBLUE = UIColor(red: (35.0/255.0), green: (103.0/255.0), blue: (145.0/255.0), alpha: (255.0/255.0))
 
+//let savedWords = [Word]()
+//let fromLanguage = "";
+//let toLangauge = "";
+
 
 class MainViewController: UIViewController, ARSCNViewDelegate {
     
@@ -25,8 +29,10 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var displayView: UIView!
     @IBOutlet weak var objectText: UITextView!
     @IBOutlet weak var languageLabel: UILabel!
+
     
     var currentText: String!
+    var savedWords = [Word]()
     
     //variables for language selections
     var fromLanguage = "";
@@ -69,7 +75,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        objectText.text = "press DETECT to recognize object!"
+//        objectText.text = "point at object & press DETECT!"
         objectText.font = UIFont(name: "Arial", size: 18)
         objectText.textColor = UIColor.white
         
@@ -104,8 +110,6 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.objectText.text = currentText
-
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         // Enable plane detection
@@ -148,9 +152,6 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         view.endEditing(true)
     }
     
-    
-    
-
     // MARK: - ARSCNViewDelegate
 
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
@@ -170,16 +171,23 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
             return
         }
         //[0...3]
-        let topClassifications = results[0...1]
-            .flatMap({ $0 as? VNClassificationObservation })
-            .map({ "\($0.identifier) \(($0.confidence * 100.0).rounded())" })
+        var topClassifications = results[0...1]
+            .compactMap({ $0 as? VNClassificationObservation })
+            // display image identifier
+            .map({ "\($0.identifier)" })
             //.filter({ $0.confidence > 0.2 })
-            .joined(separator: "\n")
 
+    
+        // takes very first input of classification
+        if let commaRange = topClassifications[0].range(of: ",") {
+            topClassifications[0].removeSubrange(commaRange.lowerBound..<topClassifications[0].endIndex)
+            print(topClassifications[0])
+        }
+        
         DispatchQueue.main.async {
-            self.currentText = topClassifications
+            self.currentText = topClassifications[0]
+            self.translate(word: self.currentText)
             self.objectText.text = self.currentText
-            //request.r
         }
     }
 
@@ -282,12 +290,19 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        let mainVC = self
+        //segue.destination = mainVC
         if (segue.identifier == "editText"){
-            let editVC = segue.destination as! EditTextViewController;
-//            editVC.currentText = objectText.text
+            let editVC = segue.destination as! EditTextViewController
+            editVC.mainVC = mainVC
         }
+        // check if this works
         if (segue.identifier == "toDictionaryScreen" ){
-            
+            let dictVC = segue.destination as! DictionaryViewController
+            dictVC.savedWords = self.savedWords
+            dictVC.fromLanguage = self.fromLanguage
+            dictVC.toLangauge = self.toLangauge
+            // maybe save langauge?
         }
         if (segue.identifier == "backToHomeScreen" ){
             
@@ -301,7 +316,16 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func saveTextPressed(_ sender: Any) {
-        // save to dictionary
+        // check if translation works
+        
+//        let translation = translate(word: currentText) as! String
+//        let potentialWord = Word(originalText: currentText, translatedText: translation)
+//        if (savedWords.contains(pontentialWord) == NO){
+//            savedWords.append(potentialWord)
+//        }
+//        else{
+//            // do something
+//        }
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
