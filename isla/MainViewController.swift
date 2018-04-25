@@ -18,9 +18,6 @@ import Vision
 let LIGHTBLUE = UIColor(red: (189.0/255.0), green: (232.0/255.0), blue: (248.0/255.0), alpha: (255.0/255.0))
 let DARKBLUE = UIColor(red: (35.0/255.0), green: (103.0/255.0), blue: (145.0/255.0), alpha: (255.0/255.0))
 
-//let savedWords = [Word]()
-//let fromLanguage = "";
-//let toLangauge = "";
 
 
 class MainViewController: UIViewController, ARSCNViewDelegate {
@@ -305,7 +302,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
             // maybe save langauge?
         }
         if (segue.identifier == "backToHomeScreen" ){
-            
+            let homeVC = segue.destination as! HomeViewController
+            homeVC.fromLanguage = self.fromLanguage
+            homeVC.toLangauge = self.toLangauge
         }
         
     }

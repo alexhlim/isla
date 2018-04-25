@@ -43,10 +43,18 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         //populatepicker
         
         //set default value to from English to French
-        fromLanguage = languages[0]
-        toLangauge = languages[13]
-        self.fromPicker.selectRow(0, inComponent: 0, animated: true)
-        self.toPicker.selectRow(13, inComponent: 0, animated: true)
+        if (fromLanguage == "" && toLangauge == ""){
+            fromLanguage = languages[0]
+            toLangauge = languages[13]
+            self.fromPicker.selectRow(0, inComponent: 0, animated: true)
+            self.toPicker.selectRow(13, inComponent: 0, animated: true)
+        }
+        else{
+            let i = languages.index(of: fromLanguage)!
+            let j = languages.index(of: toLangauge)!
+            self.fromPicker.selectRow(i, inComponent: 0, animated: true)
+            self.toPicker.selectRow(j, inComponent: 0, animated: true)
+        }
     }
     
     @objc func respondToSwipeLeft(gesture : UIGestureRecognizer) {
