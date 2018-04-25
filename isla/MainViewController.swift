@@ -28,7 +28,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var languageLabel: UILabel!
 
     
-    var currentText: String!
+    //var currentText: String!
+    var currentWord = Word()
     var savedWords = [Word]()
     
     //variables for language selections
@@ -182,11 +183,13 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         }
         
         DispatchQueue.main.async {
-            self.currentText = topClassifications[0]
+            self.currentWord.originalText = topClassifications[0]
             //translate detected word from english
-            var translatedWord = self.translate(word: self.currentText, fromL: "en", toL: self.fromLanguage)
+            let translatedWord = self.translate(word: self.currentWord.originalText!, fromL: "en", toL: self.fromLanguage)
             
-            self.objectText.text = translatedWord
+            self.currentWord.originalText = translatedWord;
+            self.objectText.text = self.currentWord.originalText
+            
         }
     }
 
@@ -283,7 +286,11 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func translatePressed(_ sender: Any) {
         // API Req
         
-        //self.objectText.text = currentText
+        let translation = self.translate(word: self.currentWord.originalText!, fromL: fromLanguage, toL: toLangauge)
+        
+        self.currentWord.translatedText = translation
+        
+        self.objectText.text = self.currentWord.translatedText
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
