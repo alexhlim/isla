@@ -15,6 +15,8 @@ class DictionaryViewController: UIViewController, UITableViewDelegate, UITableVi
     var savedWords = [Word]()
     var fromLanguage = "";
     var toLangauge = "";
+    var fromCode = "";
+    var toCode = ""; 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return savedWords.count
@@ -56,6 +58,8 @@ class DictionaryViewController: UIViewController, UITableViewDelegate, UITableVi
             mainVC.savedWords = self.savedWords
             mainVC.fromLanguage = self.fromLanguage
             mainVC.toLangauge = self.toLangauge
+            mainVC.fromCode = self.fromCode
+            mainVC.toCode = self.toCode
         }
     }
     

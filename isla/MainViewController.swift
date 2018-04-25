@@ -185,7 +185,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         DispatchQueue.main.async {
             self.currentWord.originalText = topClassifications[0]
             //translate detected word from english
-            let translatedWord = self.translate(word: self.currentWord.originalText!, fromL: "en", toL: self.fromLanguage)
+            let translatedWord = self.translate(word: self.currentWord.originalText!, fromL: "en", toL: self.fromCode)
             
             self.currentWord.originalText = translatedWord;
             self.objectText.text = self.currentWord.originalText
@@ -306,12 +306,17 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
             dictVC.savedWords = self.savedWords
             dictVC.fromLanguage = self.fromLanguage
             dictVC.toLangauge = self.toLangauge
+            dictVC.toCode = self.toCode
+            dictVC.fromCode = self.fromCode
             // maybe save langauge?
         }
         if (segue.identifier == "backToHomeScreen" ){
             let homeVC = segue.destination as! HomeViewController
             homeVC.fromLanguage = self.fromLanguage
             homeVC.toLangauge = self.toLangauge
+            // don't need to and from code? 
+//            homeVC.toCode = self.toCode
+//            homeVC.fromCode = self.fromCode
         }
         
     }
