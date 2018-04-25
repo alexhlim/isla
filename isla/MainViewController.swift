@@ -18,6 +18,10 @@ import Vision
 let LIGHTBLUE = UIColor(red: (189.0/255.0), green: (232.0/255.0), blue: (248.0/255.0), alpha: (255.0/255.0))
 let DARKBLUE = UIColor(red: (35.0/255.0), green: (103.0/255.0), blue: (145.0/255.0), alpha: (255.0/255.0))
 
+//let savedWords = [Word]()
+//let fromLanguage = "";
+//let toLangauge = "";
+
 
 class MainViewController: UIViewController, ARSCNViewDelegate {
     
@@ -148,9 +152,6 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         view.endEditing(true)
     }
     
-    
-    
-
     // MARK: - ARSCNViewDelegate
 
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
@@ -296,6 +297,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         if (segue.identifier == "toDictionaryScreen" ){
             let dictVC = segue.destination as! DictionaryViewController
             dictVC.savedWords = self.savedWords
+            dictVC.fromLanguage = self.fromLanguage
+            dictVC.toLangauge = self.toLangauge
             // maybe save langauge?
         }
         if (segue.identifier == "backToHomeScreen" ){

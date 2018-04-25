@@ -13,6 +13,8 @@ class DictionaryViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var table: UITableView!
     let temp = Word(originalText: "apple", translatedText: "la manzana")
     var savedWords = [Word]()
+    var fromLanguage = "";
+    var toLangauge = "";
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return savedWords.count
@@ -40,7 +42,7 @@ class DictionaryViewController: UIViewController, UITableViewDelegate, UITableVi
         table.delegate = self
         table.dataSource = self
         
-        savedText.append(temp)
+        savedWords.append(temp)
         table.backgroundColor = LIGHTBLUE
 
         // Do any additional setup after loading the view.
