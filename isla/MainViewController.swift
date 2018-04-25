@@ -28,6 +28,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
 
     
     var currentText: String!
+    var savedWords = [Word]()
     
     //variables for language selections
     var fromLanguage = "";
@@ -281,17 +282,21 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     
     @IBAction func translatePressed(_ sender: Any) {
         // API Req
+        //translate(word: currentText)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         let mainVC = self
         //segue.destination = mainVC
         if (segue.identifier == "editText"){
-            let editVC = segue.destination as! EditTextViewController;
+            let editVC = segue.destination as! EditTextViewController
             editVC.mainVC = mainVC
         }
+        // check if this works
         if (segue.identifier == "toDictionaryScreen" ){
-            
+            let dictVC = segue.destination as! DictionaryViewController
+            dictVC.savedWords = self.savedWords
+            // maybe save langauge?
         }
         if (segue.identifier == "backToHomeScreen" ){
             
@@ -305,7 +310,16 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func saveTextPressed(_ sender: Any) {
-        // save to dictionary
+        // check if translation works
+        
+//        let translation = translate(word: currentText) as! String
+//        let potentialWord = Word(originalText: currentText, translatedText: translation)
+//        if (savedWords.contains(pontentialWord) == NO){
+//            savedWords.append(potentialWord)
+//        }
+//        else{
+//            // do something
+//        }
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {

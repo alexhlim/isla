@@ -31,6 +31,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
         
+        self.view.backgroundColor = LIGHTBLUE
+        
         // Connect data:
         self.fromPicker.delegate = self
         self.fromPicker.dataSource = self
