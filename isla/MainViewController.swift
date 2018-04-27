@@ -292,7 +292,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func translatePressed(_ sender: Any) {
         // API Req
         print ("current text ", self.currentWord.originalText)
-        let translation = self.translate(word: self.currentWord.originalText!, fromL: fromLanguage, toL: toLangauge)
+        let translation = self.translate(word: self.currentWord.originalText!, fromL: fromCode, toL: toCode)
         
         self.currentWord.translatedText = translation
         
