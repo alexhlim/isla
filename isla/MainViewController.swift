@@ -26,7 +26,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var displayView: UIView!
     @IBOutlet weak var objectText: UITextView!
     @IBOutlet weak var languageLabel: UILabel!
-
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var favoriteImage: UIImageView!
     
     //var currentText: String!
     var currentWord = Word()
@@ -36,7 +37,10 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     var fromLanguage = "";
     var toLangauge = "";
     var fromCode = "";
-    var toCode = ""; 
+    var toCode = "";
+    
+    // translated boolean for save button
+    var isTranslated = false
     
     //api key for yandex
     var APIKey = "trnsl.1.1.20180422T194443Z.0cefe4aad54a64e7.803240dd4b0f2d8166f7d7ad878d512f2dab58fa"
@@ -52,7 +56,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     // CoreML
     var visionRequest = [VNRequest]()
     // hmm label
-    let mlDispatchQueue = DispatchQueue(label: "com.hw.dispatchqueueml")
+//    let mlDispatchQueue = DispatchQueue(label: "com.hw.dispatchqueueml")
+    let translationDispatchGroup = DispatchGroup()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +86,10 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         languageLabel.text = toLangauge;
         languageLabel.font = UIFont(name: "Arial", size: 18)
         languageLabel.textColor = DARKBLUE
+        
+        // disable button until translate is pressed
+        favoriteButton.isEnabled = false
+        
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -183,15 +192,23 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
             print(topClassifications[0])
         }
         
-        DispatchQueue.main.async {
-            self.currentWord.originalText = topClassifications[0]
-            //translate detected word from english
-            let translatedWord = self.translate(word: self.currentWord.originalText!, fromL: "en", toL: self.fromCode)
-            
-            self.currentWord.originalText = translatedWord;
+        
+        //var translatedWord: String!
+        //let queue = DispatchQueue(label: "MyArrayQueue", attributes: .concurrent)
+        // DispatchQueue
+        //.main.async
+        //queue.async(flags: .barrier) {
+        
+        self.currentWord.originalText = topClassifications[0]
+        translationDispatchGroup.enter()
+        self.translate(word: self.currentWord.originalText!, fromL: "en", toL: self.fromCode, from: true)
+        translationDispatchGroup.leave()
+        
+        translationDispatchGroup.notify(queue: .main) {
             self.objectText.text = self.currentWord.originalText
-            
         }
+
+        
     }
 
     func updateML(){
@@ -224,14 +241,15 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     
 //    translate function that takes languages specs and the word to be translated
     //TODO: URL encode strings
-    func translate(word: String, fromL: String, toL: String) -> (String){
+    // before -> (String)
+    func translate(word: String, fromL: String, toL: String, from: Bool){
         
         //url encode
         let word = word.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
         
-        print("urlencoded ", word)
+        //print("urlencoded ", word)
 
-        var translation = "";
+        var translation = ""
         
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
@@ -239,7 +257,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
 
         let urlString = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=\(APIKey)&text=\(word)&lang=\(fromL)-\(toL)"
 
-        print("url string is \(urlString)")
+        //print("url string is \(urlString)")
         //let url = NSURL(string: urlString as String)
 
         let request : NSMutableURLRequest = NSMutableURLRequest()
@@ -249,7 +267,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
 
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-
+        
+        translationDispatchGroup.enter()
         let dataTask = session.dataTask(with: request as URLRequest) {
              data, response, error in
 
@@ -259,14 +278,19 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
                     print("error: not a valid http response")
                     return
             }
-
+            
             switch (httpResponse.statusCode)
             {
             case 200:
                 if let json = (try? JSONSerialization.jsonObject(with: receivedData, options: .allowFragments)) as? [String: Any] {
                     let tArray = json["text"] as! [String]
                     translation = tArray[0]
-                        print("response is \(translation)")
+                    
+                   
+                    
+                    print("response is \(translation)")
+                    self.translationDispatchGroup.leave()
+                    //return translation
                     
                 }
                 //let response = NSString (data: receivedData, encoding: String.Encoding.utf8.rawValue)
@@ -277,26 +301,44 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
                 print(" GET request got response \(httpResponse.statusCode)")
             }
         }
-        dataTask.resume()
         
-        return translation
+        dataTask.resume()
+        translationDispatchGroup.notify(queue: .main) {
+            if (from == true){
+                print(translation)
+                self.currentWord.originalText = translation
+            }
+            else{
+                self.currentWord.translatedText = translation
+            }
+        }
+        
+        //return translation
+        
+
+        
+        
 
     }
 
 
     @IBAction func detectPressed(_ sender: Any) {
+        favoriteImage.image = UIImage(named: "favorite.png")
+        favoriteButton.isEnabled = true
         updateML()
+        isTranslated = false
     }
     
     
     @IBAction func translatePressed(_ sender: Any) {
-        // API Req
-        print ("current text ", self.currentWord.originalText)
-        let translation = self.translate(word: self.currentWord.originalText!, fromL: fromLanguage, toL: toLangauge)
-        
-        self.currentWord.translatedText = translation
-        
-        self.objectText.text = self.currentWord.translatedText
+        translationDispatchGroup.enter()
+        self.translate(word: self.currentWord.originalText!, fromL: fromCode, toL: toCode, from: false)
+        translationDispatchGroup.leave()
+        translationDispatchGroup.notify(queue: .main) {
+            self.objectText.text = self.currentWord.translatedText
+        }
+        isTranslated = true
+        favoriteButton.isEnabled = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -320,9 +362,6 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
             let homeVC = segue.destination as! HomeViewController
             homeVC.fromLanguage = self.fromLanguage
             homeVC.toLangauge = self.toLangauge
-            // don't need to and from code? 
-//            homeVC.toCode = self.toCode
-//            homeVC.fromCode = self.fromCode
         }
         
     }
@@ -332,32 +371,33 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         self.performSegue(withIdentifier: "editText", sender: self)
     }
     
-    @IBAction func saveTextPressed(_ sender: Any) {
-        // check if translation works
-        
-//        let translation = translate(word: currentText) as! String
-//        let potentialWord = Word(originalText: currentText, translatedText: translation)
-//        if (savedWords.contains(pontentialWord) == NO){
-//            savedWords.append(potentialWord)
-//        }
-//        else{
-//            // do something
-//        }
+    @IBAction func favoritePressed(_ sender: Any) {
+        let image = UIImage(named: "favorite_yellow.png")
+        if (favoriteImage.image == image){
+            if let index = savedWords.index(of:currentWord) {
+                savedWords.remove(at: index)
+            }
+            favoriteImage.image = UIImage(named: "favorite.png")
+            isTranslated = false
+        }
+        else{
+            if (savedWords.contains(currentWord) == false){
+                savedWords.append(currentWord)
+                currentWord = Word()
+                favoriteImage.image = UIImage(named: "favorite_yellow.png")
+                isTranslated = true
+            }
+            else{
+                print("Word is already contained in Dictionary")
+                print("OG: " + currentWord.originalText! + " NEWW: " + currentWord.translatedText!)
+            }
+        }
     }
     
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
 
-    }
-
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-
-    }
-
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-
+    @IBAction func didUnwindFromDictVC (_ sender: UIStoryboardSegue){
+        let dictVC = sender.source as? DictionaryViewController
+        
     }
 
 

@@ -19,3 +19,12 @@ class Word {
     }
     
 }
+
+// to use contains method
+extension Word: Equatable {
+    static func == (lhs: Word, rhs: Word) -> Bool {
+        return
+            lhs.originalText == rhs.originalText &&
+                lhs.translatedText == rhs.translatedText
+    }
+}

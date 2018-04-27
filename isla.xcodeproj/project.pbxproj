@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D066767C2092750B00EF6CCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D066767B2092750A00EF6CCA /* Assets.xcassets */; };
 		D0AAE5FE2090E33700A9E3B3 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAE5FD2090E33700A9E3B3 /* Word.swift */; };
 		D0CF9938208AF110001EAD30 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF9937208AF110001EAD30 /* HomeViewController.swift */; };
 		D0CF993A208AF189001EAD30 /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */; };
@@ -15,7 +16,6 @@
 		D0D58565208170B1004DF5E5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = D0D58564208170B1004DF5E5 /* art.scnassets */; };
 		D0D58567208170B1004DF5E5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D58566208170B1004DF5E5 /* MainViewController.swift */; };
 		D0D5856A208170B1004DF5E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0D58568208170B1004DF5E5 /* Main.storyboard */; };
-		D0D5856C208170B1004DF5E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0D5856B208170B1004DF5E5 /* Assets.xcassets */; };
 		D0D5856F208170B1004DF5E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0D5856D208170B1004DF5E5 /* LaunchScreen.storyboard */; };
 		D0D5857A208170B1004DF5E5 /* islaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D58579208170B1004DF5E5 /* islaTests.swift */; };
 		D0D58585208170B1004DF5E5 /* islaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D58584208170B1004DF5E5 /* islaUITests.swift */; };
@@ -40,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D066767B2092750A00EF6CCA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0AAE5FD2090E33700A9E3B3 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D0CF9937208AF110001EAD30 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
@@ -49,7 +50,6 @@
 		D0D58564208170B1004DF5E5 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		D0D58566208170B1004DF5E5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D0D58569208170B1004DF5E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D0D5856B208170B1004DF5E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0D5856E208170B1004DF5E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0D58570208170B1004DF5E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0D58575208170B1004DF5E5 /* islaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = islaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,8 +117,8 @@
 				D0AAE5FD2090E33700A9E3B3 /* Word.swift */,
 				D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */,
 				D0CF9937208AF110001EAD30 /* HomeViewController.swift */,
-				D0D5856B208170B1004DF5E5 /* Assets.xcassets */,
 				D0D5856D208170B1004DF5E5 /* LaunchScreen.storyboard */,
+				D066767B2092750A00EF6CCA /* Assets.xcassets */,
 				D0D58570208170B1004DF5E5 /* Info.plist */,
 				E954146B208D2318008279FC /* Inceptionv3.mlmodel */,
 			);
@@ -252,7 +252,7 @@
 			files = (
 				D0D58565208170B1004DF5E5 /* art.scnassets in Resources */,
 				D0D5856F208170B1004DF5E5 /* LaunchScreen.storyboard in Resources */,
-				D0D5856C208170B1004DF5E5 /* Assets.xcassets in Resources */,
+				D066767C2092750B00EF6CCA /* Assets.xcassets in Resources */,
 				D0D5856A208170B1004DF5E5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

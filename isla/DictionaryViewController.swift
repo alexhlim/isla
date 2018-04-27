@@ -64,7 +64,11 @@ class DictionaryViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func respondToSwipeRight(gesture : UIGestureRecognizer) {
-        self.performSegue(withIdentifier: "backToMainScreen", sender: self)
+        
+        self.savedWords = []
+        self.performSegue(withIdentifier: "unwindFromDictVC", sender: self)
+        //self.performSegue(withIdentifier: "backToMainScreen", sender: self)
+        
     }
 
 

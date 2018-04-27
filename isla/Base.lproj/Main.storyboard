@@ -71,7 +71,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
-                                                    <action selector="saveTextPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="WZD-1Z-ewe"/>
+                                                    <action selector="favoritePressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2Ci-i6-3H9"/>
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="favorite" translatesAutoresizingMaskIntoConstraints="NO" id="0S0-ew-EOS">
@@ -134,6 +134,8 @@
                     </view>
                     <connections>
                         <outlet property="displayView" destination="VqE-yE-6MG" id="0oZ-qE-SfH"/>
+                        <outlet property="favoriteButton" destination="gJu-tv-3vh" id="LTh-Bx-wuZ"/>
+                        <outlet property="favoriteImage" destination="0S0-ew-EOS" id="Wm5-EL-24v"/>
                         <outlet property="languageLabel" destination="tZU-ek-3Ah" id="Iwf-2m-8LY"/>
                         <outlet property="objectText" destination="0Hz-br-ECU" id="7aL-Ag-C0a"/>
                         <outlet property="sceneView" destination="Rlx-3e-HcJ" id="LrO-P4-WRg"/>
@@ -311,9 +313,11 @@
                     <connections>
                         <outlet property="table" destination="fuf-s3-iaM" id="Uc8-P8-ZzK"/>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="backToMainScreen" modalTransitionStyle="flipHorizontal" id="L42-95-ZxU"/>
+                        <segue destination="xkP-QE-YDL" kind="unwind" identifier="unwindFromDictVC" unwindAction="didUnwindFromDictVC:" id="eiI-iC-7ru"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K07-Dv-aoH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xkP-QE-YDL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1368.8" y="-9.4452773613193415"/>
         </scene>
@@ -324,6 +328,6 @@
         <image name="logo" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="A05-aS-Qvk"/>
+        <segue reference="L42-95-ZxU"/>
     </inferredMetricsTieBreakers>
 </document>
