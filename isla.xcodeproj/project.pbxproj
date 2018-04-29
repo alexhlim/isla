@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D066767C2092750B00EF6CCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D066767B2092750A00EF6CCA /* Assets.xcassets */; };
+		D093662C2095256900E4F7D9 /* DictionaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D093662B2095256900E4F7D9 /* DictionaryCell.swift */; };
 		D0AAE5FE2090E33700A9E3B3 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAE5FD2090E33700A9E3B3 /* Word.swift */; };
 		D0CF9938208AF110001EAD30 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF9937208AF110001EAD30 /* HomeViewController.swift */; };
 		D0CF993A208AF189001EAD30 /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		D066767B2092750A00EF6CCA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D093662B2095256900E4F7D9 /* DictionaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryCell.swift; sourceTree = "<group>"; };
 		D0AAE5FD2090E33700A9E3B3 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D0CF9937208AF110001EAD30 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				D0D58566208170B1004DF5E5 /* MainViewController.swift */,
 				D0CF993D208B156E001EAD30 /* EditTextViewController.swift */,
 				D0D58568208170B1004DF5E5 /* Main.storyboard */,
+				D093662B2095256900E4F7D9 /* DictionaryCell.swift */,
 				D0AAE5FD2090E33700A9E3B3 /* Word.swift */,
 				D0CF9939208AF189001EAD30 /* DictionaryViewController.swift */,
 				D0CF9937208AF110001EAD30 /* HomeViewController.swift */,
@@ -283,6 +286,7 @@
 				D0D58567208170B1004DF5E5 /* MainViewController.swift in Sources */,
 				D0D58563208170B1004DF5E5 /* AppDelegate.swift in Sources */,
 				D0CF9938208AF110001EAD30 /* HomeViewController.swift in Sources */,
+				D093662C2095256900E4F7D9 /* DictionaryCell.swift in Sources */,
 				D0AAE5FE2090E33700A9E3B3 /* Word.swift in Sources */,
 				E954146C208D2318008279FC /* Inceptionv3.mlmodel in Sources */,
 			);

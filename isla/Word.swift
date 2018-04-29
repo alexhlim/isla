@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Custom object that is intended to hold two Strings: the original text and the translated text
 class Word {
     
     var originalText: String?
@@ -20,11 +21,14 @@ class Word {
     
 }
 
-// to use contains method
+// need equtable to use contains method
 extension Word: Equatable {
     static func == (lhs: Word, rhs: Word) -> Bool {
+        print("Original Text: " + "LHS: " + lhs.originalText! + "RHS: " + rhs.originalText!)
+        print("Translated Text: " + "LHS: " + lhs.translatedText! + "RHS: " + rhs.translatedText!)
         return
             lhs.originalText == rhs.originalText &&
                 lhs.translatedText == rhs.translatedText
     }
 }
+

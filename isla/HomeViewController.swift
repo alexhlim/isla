@@ -10,28 +10,27 @@ import UIKit
 
 class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    //variables
     @IBOutlet weak var fromPicker: UIPickerView!
     @IBOutlet weak var toPicker: UIPickerView!
-    //var languages: [String] = [String]()
-    //var languageCodes: [String] = [String]()
     
     var fromLanguage = ""
+    var fromLanguageIndex = 0
     var toLangauge = ""
+    var toLanguageIndex = 0
     
-    var languages = ["English", "Albanian", "Amharic", "Arabic", "Bengali", "Bulgarian", "Bosnian", "Chinese", "Croatian", "Czech", "Danish", "Dutch", "Finnish", "French", "German", "Greek", "Haitian (Creole)", "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Irish", "Italian", "Japanese", "Korean", "Laotian", "Latin", "Latvian", "Lithuanian", "Luxembourgish", "Malay", "Malayalam", "Maltese", "Mongolian", "Nepali", "Norwegian", "Punjabi", "Persian", "Polish", "Portuguese", "Romanian", "Russian", "Scottish", "Serbian", "Slovakian", "Slovenian", "Spanish", "Swahili", "Thai", "Turkish", "Ukrainian", "Vietnamese", "Welsh", "Yiddish"]
+    // Yandex API's languages + language codes
+    let languages = ["English", "Arabic", "Chinese", "Czech", "Danish", "Dutch", "Finnish", "French", "German", "Greek", "Hebrew", "Hindi", "Hungarian", "Indonesian", "Italian", "Japanese", "Korean", "Norwegian", "Polish", "Portuguese", "Romanian", "Russian", "Slovakian", "Spanish",  "Thai", "Turkish"]
     
-    var languageCodes = ["en", "sq", "am", "ar", "bn", "bg", "bs", "zh", "hr", "cs", "da", "nl", "fi", "fr", "de", "el", "ht", "he", "hi", "hu", "is", "id", "ga", "it", "ja", "ko", "lo", "la", "lv", "lt", "lb", "ms", "ml", "mt", "mn", "ne", "no", "pa", "fa", "pl", "pt", "ro", "ru", "gd", "sr", "sk", "sl", "es", "sw", "th", "tr", "uk", "vi", "cy", "yi"]
+    let languageCodes = ["en", "ar", "zh", "cs", "da", "nl", "fi", "fr", "de", "el", "he", "hi", "hu", "id", "it", "ja", "ko", "no", "pl", "pt", "ro", "ru", "sk", "es", "th", "tr"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // adding swipe left to segue to MainViewController
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeLeft))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
-        
-        self.view.backgroundColor = LIGHTBLUE
         
         // Connect data:
         self.fromPicker.delegate = self
@@ -40,33 +39,20 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         self.toPicker.delegate = self
         self.toPicker.dataSource = self
         
-        //populatepicker
-        
-        //set default value to from English to French
-        if (fromLanguage == "" && toLangauge == ""){
-            fromLanguage = languages[0]
-            toLangauge = languages[13]
-            self.fromPicker.selectRow(0, inComponent: 0, animated: true)
-            self.toPicker.selectRow(13, inComponent: 0, animated: true)
-        }
-        else{
-            let i = languages.index(of: fromLanguage)!
-            let j = languages.index(of: toLangauge)!
-            self.fromPicker.selectRow(i, inComponent: 0, animated: true)
-            self.toPicker.selectRow(j, inComponent: 0, animated: true)
-        }
+        // set default value to from English to French
+        fromLanguage = languages[0]
+        toLangauge = languages[7]
+        self.fromPicker.selectRow(0, inComponent: 0, animated: true)
+        self.fromLanguageIndex = 0
+        self.toPicker.selectRow(7, inComponent: 0, animated: true)
+        self.toLanguageIndex = 7
     }
     
     @objc func respondToSwipeLeft(gesture : UIGestureRecognizer) {
-        self.performSegue(withIdentifier: "toMainScreen", sender: self)
+        self.performSegue(withIdentifier: "toMainVC", sender: self)
     }
-    
     
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     //picker methods!
     
@@ -87,29 +73,38 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     // Capture the picker view selection
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         switch pickerView {
-        case fromPicker: fromLanguage = languages[row]
-        case toPicker: toLangauge = languages[row]
+        case fromPicker:
+            self.fromLanguage = languages[row]
+            self.fromLanguageIndex = row
+        case toPicker:
+            self.toLangauge = languages[row]
+            self.toLanguageIndex = row
         default:
             fromLanguage = languages[row]
+            self.fromLanguageIndex = row
             toLangauge = languages[row]
+            self.toLanguageIndex = row
         }
-        
-        print("FIRST CONTROLLER from ", fromLanguage, " to ", toLangauge)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let vc = segue.destination as? MainViewController
+        if (segue.identifier == "toMainVC")
         {
-            vc.toLangauge = self.toLangauge
-            vc.fromLanguage = self.fromLanguage
-            vc.fromCode = languageCodes[languages.index(of: self.fromLanguage)!]
-            vc.toCode = languageCodes[languages.index(of: self.toLangauge)!]
+            // send relevant data to MainViewController
+            let mainVC = segue.destination as! MainViewController
+            mainVC.toLangauge = self.toLangauge
+            mainVC.toLanguageIndex = self.toLanguageIndex
+            mainVC.fromLanguage = self.fromLanguage
+            mainVC.fromLanguageIndex = self.fromLanguageIndex
+            mainVC.fromCode = languageCodes[languages.index(of: self.fromLanguage)!]
+            mainVC.toCode = languageCodes[languages.index(of: self.toLangauge)!]
         }
-   
+    }
+    
+    // Unwind segue: used by MainViewController
+    @IBAction func didUnwindFromMainVC (_ sender: UIStoryboardSegue){
+        let mainVC = sender.source as? MainViewController
     }
 
     
