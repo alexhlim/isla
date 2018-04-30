@@ -16,11 +16,15 @@ class DictionaryViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var table: UITableView!
     var savedWords = [Word]()
+    var fromLanguage = ""
+    var toLanguage = ""
     var fromLanguageIndex = 0
     var toLanguageIndex = 0
     var currentCell = DictionaryCell()
     // language codes for AVFoundation
     let speechLanguages = ["en-US","ar-SA","zh-CN", "cs-CZ", "da-DK", "nl-NL", "fi-FI", "fr-FR", "de-DE", "el-GR", "he-IL", "hi-IN", "hu-HU", "id-ID", "it-IT", "ja-JP", "ko-KR", "no-NO", "pl-PL", "pt-BR", "ro-RO", "ru-RU", "sk-SK", "es-ES", "th-TH", "tr-TR"]
+    
+    @IBOutlet weak var dictionaryLabel: UILabel!
     
     /**
      This is the first of the table view methods. It tells the table view how many cells should be displayed.
@@ -60,6 +64,7 @@ class DictionaryViewController: UIViewController, UITableViewDelegate, UITableVi
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeRight))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         self.view.addGestureRecognizer(swipeRight)
+        self.dictionaryLabel.text = self.fromLanguage + "-" + self.toLanguage + " Dictionary"
         
         table.delegate = self
         table.dataSource = self

@@ -10,9 +10,6 @@ import UIKit
 import ARKit
 import Vision
 
-let LIGHTBLUE = UIColor(red: (189.0/255.0), green: (232.0/255.0), blue: (248.0/255.0), alpha: (255.0/255.0))
-let DARKBLUE = UIColor(red: (35.0/255.0), green: (103.0/255.0), blue: (145.0/255.0), alpha: (255.0/255.0))
-
 /**
  This is the MainViewController. It is where we use the camera to capture
  images and feed it into CoreML, and then translate it using Yandex's Translation API.
@@ -320,6 +317,8 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
             dictVC.savedWords = self.savedWords
             dictVC.fromLanguageIndex = self.fromLanguageIndex
             dictVC.toLanguageIndex = self.toLanguageIndex
+            dictVC.fromLanguage = self.fromLanguage
+            dictVC.toLanguage = self.toLangauge
         }
         if (segue.identifier == "unwindFromMainVC" ){
             let homeVC = segue.destination as! HomeViewController
