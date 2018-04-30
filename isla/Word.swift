@@ -8,7 +8,9 @@
 
 import Foundation
 
-// Custom object that is intended to hold two Strings: the original text and the translated text
+/**
+ This is a custom object that is intended to hold two Strings: the original text and the translated text. It is used primarily so that favorited words can be displayed in the dictionary.
+ */
 class Word {
     
     var originalText: String?
@@ -21,7 +23,9 @@ class Word {
     
 }
 
-// need equtable to use contains method
+/**
+ This Equatable function is necessary when we want to compare Word objects against each other. Also, it allows us to use the contains() method for our array of Word objects.
+ */
 extension Word: Equatable {
     static func == (lhs: Word, rhs: Word) -> Bool {
         print("Original Text: " + "LHS: " + lhs.originalText! + "RHS: " + rhs.originalText!)

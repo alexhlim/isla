@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This is the MainViewController. It is the first view the user sees when the app is loaded. It contains two picker views, one for translating from, and the other for translating to. Once the user picks the two languages, they may swipe right to go to the MainViewController.
+ */
 class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var fromPicker: UIPickerView!
@@ -23,7 +26,9 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     let languageCodes = ["en", "ar", "zh", "cs", "da", "nl", "fi", "fr", "de", "el", "he", "hi", "hu", "id", "it", "ja", "ko", "no", "pl", "pt", "ro", "ru", "sk", "es", "th", "tr"]
     
-    
+    /**
+     Sets up the MainViewController, specifically, the swiping gestures and picker delegate and data sources. Also, the default of this picker views is "From English, to French".
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,30 +53,38 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         self.toLanguageIndex = 7
     }
     
+    /**
+     Respond to swiping left: goes perform segue to MainViewController.
+     */
     @objc func respondToSwipeLeft(gesture : UIGestureRecognizer) {
         self.performSegue(withIdentifier: "toMainVC", sender: self)
     }
     
 
-    
-    //picker methods!
-    
-    // The number of columns of data
+    /**
+     This is the first of the picker methods. It selects the number of components for the picker views.
+     */
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    // The number of rows of data
+    /**
+     This picker method selects the number of rows of data for the picker views.
+     */
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return languages.count
     }
     
-    // The data to return for the row and component (column) that's being passed in
+    /**
+     This picker method is for the data to be return for the row and component (column) that's being passed in.
+     */
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return languages[row]
     }
     
-    // Capture the picker view selection
+    /**
+     This picker method capture the picker view selection.
+     */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case fromPicker:
@@ -88,6 +101,9 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         }
     }
     
+    /**
+     This prepares the segue and sends all the necessary information to the next view controller, MainViewController. It sends over the langauges along with their codes for the API calls.
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toMainVC")
         {
@@ -102,7 +118,9 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         }
     }
     
-    // Unwind segue: used by MainViewController
+    /**
+     This method is the unwind segue method that is used by the MainViewController. Unwinding segues is important as new view controllers are not created, so the ViewController stack stays limited to the number of main view controllers.
+     */
     @IBAction func didUnwindFromMainVC (_ sender: UIStoryboardSegue){
         let mainVC = sender.source as? MainViewController
     }

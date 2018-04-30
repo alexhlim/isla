@@ -13,7 +13,10 @@ import Vision
 let LIGHTBLUE = UIColor(red: (189.0/255.0), green: (232.0/255.0), blue: (248.0/255.0), alpha: (255.0/255.0))
 let DARKBLUE = UIColor(red: (35.0/255.0), green: (103.0/255.0), blue: (145.0/255.0), alpha: (255.0/255.0))
 
-
+/**
+ This is the MainViewController. It is where we use the camera to capture
+ images and feed it into CoreML, and then translate it using Yandex's Translation API.
+ */
 class MainViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
@@ -48,6 +51,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     var visionRequest = [VNRequest]()
     let translationDispatchGroup = DispatchGroup()
 
+    /**
+     Helps get the view ready: it sets up the swipe gesture for segues, the tap gesture for editing, and sets up the CoreML model, Inceptionv3.
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,6 +91,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         
     }
 
+    /**
+     Configures the ARSCNView and keeps the session running.
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -97,7 +106,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.run(configuration)
     }
 
-
+    /**
+     Keeps track of the session if it disappears.
+     */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -105,7 +116,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    // swipe left or right to perform segue
+    /**
+     Handles the swiping gestures. When a swipe is detected, it performs a segue to a new destination view controller.
+    */
     @objc func respondToSwipe(gesture : UIGestureRecognizer) {
         if let gesture = gesture as? UISwipeGestureRecognizer {
             switch gesture.direction{
@@ -119,13 +132,17 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    // for tap gesture
+    /**
+     This function is primarily used for dismissing the keyboard for editing text.
+     */
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
 
-    // coreML methods
+    /**
+     This is the first of the CoreML methods. It sets up the handler that is needed to perform a Vision request. We take the output of the Inceptionv3 model and take the classification with the highest probability.
+     */
     func handleClass(request: VNRequest, error: Error?){
         if error != nil{
             print("Error: " + (error?.localizedDescription)! )
@@ -161,6 +178,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
+    /**
+     Captures the current frame of the ARSCNView and uses it as an input to feed into the CoreML model. Also, it uses the handler defined previously to handle any errors.
+     */
     func updateML(){
         let currentPixels: CVPixelBuffer?
         let currentImage: CIImage
@@ -190,6 +210,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
     }
     
     // translate function that takes languages specs and the word to be translated
+    /**
+     Takes the language from the PickerView in the HomeViewController and translates the text according the language chosen. Also, there is use of DispatchGroups to help synchronize threads when making the API call.
+     */
     func translate(word: String, fromL: String, toL: String, from: Bool){
         //url encode
         let word = word.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
@@ -248,7 +271,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
-    // detect button
+    /**
+     This function is used to respond when the detect button is pressed. It creates a new Word object, then it calls the CoreML method to get the classification.
+     */
     @IBAction func detectPressed(_ sender: Any) {
         favoriteImage.image = UIImage(named: "favorite.png")
         favoriteButton.isEnabled = false
@@ -261,7 +286,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         self.isTranslatedText = false
     }
     
-    // translate button
+    /**
+     This function is used to respond when the translate button is pressed. The text displayed in the original text in the label will be replaced with the translated It also uses DispatchGroups to synchronize threads.
+     */
     @IBAction func translatePressed(_ sender: Any) {
         // thread synchronization
         translationDispatchGroup.enter()
@@ -276,7 +303,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         self.isTranslatedText = true
     }
     
-    // for segues
+    /**
+     This method is used handle segues to either the HomeViewController or the DictionaryViewController. Depending on which view controller is chosen, the appropriate data will be sent over.
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         let mainVC = self
         if (segue.identifier == "toEditTextVC"){
@@ -299,12 +328,16 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    // edit button
+    /**
+     This function is used to respond when the edit button is pressed. It envokes a segue to EditViewController.
+     */
     @IBAction func editTextPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "toEditTextVC", sender: self)
     }
     
-    // favorite button
+    /**
+     This method is used to repsond when the favorite button is pressed. It considers two options: if the button was already pressed or not. If the button is already pressed, then the current Word will be deleted from the dictionary. If the button is not pressed, the Word will be added to the dictionary.
+     */
     @IBAction func favoritePressed(_ sender: Any) {
         let image = UIImage(named: "favorite_yellow.png")
         // if current Word is favorited
@@ -326,7 +359,9 @@ class MainViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    // Unwind segue: used by DictionaryViewController
+    /**
+     This is a function that is used to unwind from the DictionaryViewController. Unwind is beneficial as it does not create a new instance of a view controller. 
+     */
     @IBAction func didUnwindFromDictVC (_ sender: UIStoryboardSegue){
         let dictVC = sender.source as? DictionaryViewController
         
