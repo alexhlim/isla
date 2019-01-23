@@ -2,9 +2,11 @@
 
 ## Overview
 
-International travel is becoming more prevalent in an average person’s life. Language barriers should not hinder one’s ability to effectively communicate and to be fully immersed in another culture. isla aims to help people learn new languages more effectively and efficiently when traveling abroad. Using CoreML and using Yandex's Translate API, isla will be able to identify and translate any object in real time.
+_Breaking language barriers with the tap of a button._
 
-While isla is initially focused on the uses of an average traveler, it can also be expanded to the everyday language learner. Its ease of use and adaptability allows anyone to use the app and to cater it to their daily lives. With isla, we can make learning languages easier by allowing users to customize exactly what they want to learn. 
+International travel is becoming more prevalent in an average person’s life. Language barriers should not hinder one’s ability to effectively communicate and to be fully immersed in another culture. _isla_ aims to help people learn new languages more effectively and efficiently when traveling abroad. Using CoreML and using Yandex's Translate API, _isla_ will be able to identify and translate any object in real time.
+
+While _isla_ is initially focused on the uses of an average traveler, it can also be expanded to the everyday language learner. Its ease of use and adaptability allows anyone to use the app and to cater it to their daily lives. With _isla_, we can make learning languages easier by allowing users to customize exactly what they want to learn. 
 
 ## Workflow Design
 
@@ -54,3 +56,11 @@ Asynchronous code
   - AVSpeechUtterance() ➔ Siri will speak
   - AVSpeechSynthesizer ➔ prepare for sound 
   - Speak!
+  
+### Screenshots
+
+![home](images/home.jpg)
+
+![main](images/main.jpg)
+
+![dictionary](images/dictionary.jpg)
