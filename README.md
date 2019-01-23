@@ -10,13 +10,19 @@ While isla is initially focused on the uses of an average traveler, it can also 
 
 ![flowchart](images/flowchart.jpg)
 
+
+
 ## Languages Available
 
 ![languages](images/languages.jpg)
 
+
+
 ## Buttons
 
 ![buttons](images/buttons.jpg)
+
+
 
 ## Libraries
 
@@ -48,7 +54,3 @@ Asynchronous code
   - AVSpeechUtterance() ➔ Siri will speak
   - AVSpeechSynthesizer ➔ prepare for sound 
   - Speak!
-
-## Screenshots
-
-[images/
