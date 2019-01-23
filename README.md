@@ -8,15 +8,15 @@ While isla is initially focused on the uses of an average traveler, it can also 
 
 ## Workflow Design
 
-[images/flowchart.jpg]
+![flowchart](images/flowchart.jpg)
 
 ## Languages Available
 
-[images/languages.jpg]
+![languages](images/languages.jpg)
 
 ## Buttons
 
-[images/buttons.jpg]
+![buttons](images/buttons.jpg)
 
 ## Libraries
 
