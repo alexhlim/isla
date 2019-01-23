@@ -9,22 +9,19 @@ International travel is becoming more prevalent in an average person’s life. L
 While _isla_ is initially focused on the uses of an average traveler, it can also be expanded to the everyday language learner. Its ease of use and adaptability allows anyone to use the app and to cater it to their daily lives. With _isla_, we can make learning languages easier by allowing users to customize exactly what they want to learn. 
 
 ## Workflow Design
-
-![flowchart](images/flowchart.jpg)
-
-
+&nbsp;
+<img src="images/flowchart.jpg" alt="flowchart" width="600" height="100">
+&nbsp;
 
 ## Languages Available
-
-![languages](images/languages.jpg)
-
-
+&nbsp;
+<img src="images/languages.jpg" alt="languages" width="500" height="300">
+&nbsp;
 
 ## Buttons
-
-![buttons](images/buttons.jpg)
-
-
+&nbsp;
+<img src="images/buttons.jpg" alt="buttons" width="400" height="230">
+&nbsp;
 
 ## Libraries
 
@@ -59,8 +56,4 @@ Asynchronous code
   
 ### Screenshots
 
-![home](images/home.jpg)
-
-![main](images/main.jpg)
-
-![dictionary](images/dictionary.jpg)
+<img src="images/home.jpg" alt="home" width="200" height="325"> <img src="images/main.jpg" alt="main" width="200" height="325"> <img src="images/dictionary.jpg" alt="dictionary" width="200" height="325">
